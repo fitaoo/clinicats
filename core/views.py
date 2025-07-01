@@ -1,4 +1,2 @@
-from django.shortcuts import render
-
-def inicio(request):
-    return render(request, 'index.html')
+from web.models import Anuncio
+from django.shortcuts import render, get_object_or_404
