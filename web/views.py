@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Anuncio, Empleado
 from django.core.paginator import Paginator
 
+# Propósito: Renderiza la página principal de la web
+
 
 def inicio(request):
     ultimos_anuncios = Anuncio.objects.filter(
@@ -9,16 +11,13 @@ def inicio(request):
     return render(request, 'index.html', {'ultimos_anuncios': ultimos_anuncios})
 
 
+# Propósito: Muestra un listado completo de todos los anuncios activos.
 def anuncios(request):
     anuncios = Anuncio.objects.filter(activo=True).order_by('-publicado')
     return render(request, 'web/anuncios.html', {'anuncios': anuncios})
 
 
-def anuncio_detalle(request, slug):
-    anuncio = get_object_or_404(Anuncio, slug=slug, activo=True)
-    return render(request, 'anuncio_detalle.html', {'anuncio': anuncio})
-
-
+# Propósito: Muestra el directorio telefónico.
 def contact(request):
     print("🔍 Esta es la función correcta")
 
@@ -35,11 +34,23 @@ def contact(request):
         'direccion': direccion,
     })
 
+# Propósito: Muestra la vista principal de “Blog home” con anuncio mas reciente.
 
-### PARA REDIRECCIONAR LAS SECCION#####
+
 def blog_home(request):
-    return render(request, 'blog-home.html')
+    anuncio_principal = Anuncio.objects.filter(
+        activo=True).order_by('-publicado').first()
+    otros_anuncios = Anuncio.objects.filter(
+        activo=True).order_by('-publicado')[1:4]
+
+    return render(request, 'blog-home.html', {
+        'anuncio': anuncio_principal,
+        'otros_anuncios': otros_anuncios
+    })
+
+# Muestra una noticia individual en su propia página usando la plantilla principal blog-post.html
 
 
-def blog_post(request):
-    return render(request, 'blog-post.html')
+def anuncio_detalle(request, slug):
+    anuncio = get_object_or_404(Anuncio, slug=slug, activo=True)
+    return render(request, 'blog-post.html', {'anuncio': anuncio})

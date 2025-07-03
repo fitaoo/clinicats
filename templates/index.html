@@ -9,20 +9,30 @@
     <meta name="author" content="" />
     <title>Clinica Tierra Santa</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/logo.ico' %}">
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-
     <link href="{% static 'assets/css/styles.css' %}" rel="stylesheet" />
 </head>
 
 <body class="d-flex flex-column h-100">
+    <div id="preloader"
+        class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center z-3"
+        style="background-color: #faf9f6; z-index: 9999;">
+        <div class="position-absolute top-0 start-0 w-100 h-100 backdrop-blur"></div>
+        <img src="{% static 'assets/img/Logo.png' %}" alt="Cargando..." height="120"
+            class="position-relative z-2 animate__animated animate__pulse animate__infinite">
+    </div>
+
     <main class="flex-shrink-0">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
-                <a class="navbar-brand" href="{% url 'inicio' %}">Clínica Tierra Santa</a>
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'inicio' %}">
+                    <img src="{% static 'assets/img/Logo.png' %}" alt="" height="36">
+                    <span>Clínica Tierra Santa</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation"><span
@@ -37,7 +47,6 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">Noticias</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                                 <li><a class="dropdown-item" href="{% url 'blog_home' %}">Blog Home</a></li>
-                                <li><a class="dropdown-item" href="{% url 'blog_post' %}">Blog Post</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -193,22 +202,43 @@
         <div class="container px-5">
             <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                 <div class="col-auto">
-                    <div class="small m-0 text-white">Copyright &copy; Your Website 2023</div>
-                </div>
-                <div class="col-auto">
-                    <a class="link-light small" href="#!">Privacy</a>
-                    <span class="text-white mx-1">&middot;</span>
-                    <a class="link-light small" href="#!">Terms</a>
-                    <span class="text-white mx-1">&middot;</span>
-                    <a class="link-light small" href="#!">Contact</a>
+                    <div class="small m-0 text-white">&copy; Clínica Tierra Santa 2025</div>
                 </div>
             </div>
         </div>
     </footer>
     <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Preloader control -->
+    <script>
+        document.body.classList.add('loading');
+
+        window.addEventListener("load", function () {
+            const preloader = document.getElementById("preloader");
+            setTimeout(() => {
+                preloader.classList.add("fade-out");
+                document.body.classList.remove('loading');
+                setTimeout(() => preloader.remove(), 1500);
+            }, 1000);
+        });
+    </script>
+
+    <style>
+        .fade-out {
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .backdrop-blur {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        body.loading {
+            overflow: hidden;
+        }
+    </style>
+
 </body>
 
 </html>
