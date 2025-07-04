@@ -1,0 +1,65 @@
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+}
+
+/* Efecto sutil al pasar sobre botones primarios */
+.btn-primary:hover {
+    background-color: #0056b3;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Enlaces con animación subrayada */
+a.efecto-enlace {
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+}
+
+a.efecto-enlace::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+a.efecto-enlace:hover::after {
+    width: 100%;
+}
+
+/* Suaviza transiciones de todo el sitio */
+body {
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Index titulo*/
+.linea {
+    opacity: 0;
+    transform: translateY(30px);
+    display: inline-block;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.linea.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.clinica {
+    color: #7a7a7a;
+}
+
+.tierra-santa {
+    background: linear-gradient(90deg, #f16f00, #ffb347);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
