@@ -12,9 +12,9 @@ def inicio(request):
 
 
 # Propósito: Muestra un listado completo de todos los anuncios activos.
-def anuncios(request):
+"""def anuncios(request):
     anuncios = Anuncio.objects.filter(activo=True).order_by('-publicado')
-    return render(request, 'web/anuncios.html', {'anuncios': anuncios})
+    return render(request, 'web/anuncios.html', {'anuncios': anuncios})"""
 
 
 # Propósito: Muestra el directorio telefónico.
@@ -34,10 +34,9 @@ def contact(request):
         'direccion': direccion,
     })
 
+
 # Propósito: Muestra la vista principal de “Blog home” con anuncio mas reciente.
-
-
-def blog_home(request):
+"""def blog_home(request):
     anuncio_principal = Anuncio.objects.filter(
         activo=True).order_by('-publicado').first()
     otros_anuncios = Anuncio.objects.filter(
@@ -46,7 +45,38 @@ def blog_home(request):
     return render(request, 'blog-home.html', {
         'anuncio': anuncio_principal,
         'otros_anuncios': otros_anuncios
+    })"""
+
+
+"""def blog_home(request):
+    anuncios_qs = Anuncio.objects.filter(activo=True).order_by('-publicado')
+    anuncio_principal = anuncios_qs.first()
+
+    # Excluir el principal de la lista paginada
+    paginator = Paginator(anuncios_qs[1:], 3)  # 3 noticias por página
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'blog-home.html', {
+        'anuncio': anuncio_principal,
+        'otros_anuncios': page_obj  # ahora es el paginado
+    })"""
+
+
+def blog_home(request):
+    anuncios_qs = Anuncio.objects.filter(activo=True).order_by('-publicado')
+    anuncio_principal = anuncios_qs.first()
+
+    # excluye el primero, pagina el resto
+    paginator = Paginator(anuncios_qs[1:], 3)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'blog-home.html', {
+        'anuncio': anuncio_principal,
+        'otros_anuncios': page_obj
     })
+
 
 # Muestra una noticia individual en su propia página usando la plantilla principal blog-post.html
 

@@ -31,7 +31,10 @@
             <div class="container px-5">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'inicio' %}">
                     <img src="{% static 'assets/img/Logo_navbar.png' %}" alt="" height="36">
-                    <span>Clínica Tierra Santa</span>
+                    <span class="navbar-nombre">
+                        <span class="clinica">Clínica</span>
+                        <span class="tierra-santa">Tierra Santa</span>
+                    </span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -60,13 +63,15 @@
                 <div class="row gx-5">
                     <div class="col-lg-3">
                         <div class="d-flex align-items-center mt-lg-5 mb-4">
-                            <img class="img-fluid rounded-circle" src="{% static 'assets/img/avatar_default.jpg' %}"
-                                alt="Avatar" />
+                            <img class="img-fluid rounded-circle" style="width: 64px; height: 64px; object-fit: cover;"
+                                src="{% if anuncio.autor.perfil.avatar %}{{ anuncio.autor.perfil.avatar.url }}{% else %}{% static 'assets/img/avatar_default.jpg' %}{% endif %}"
+                                alt="Avatar de {{ anuncio.autor.username }}" />
                             <div class="ms-3">
-                                <div class="fw-bold">Redacción CTS</div>
-                                <div class="text-muted">Noticias médicas</div>
+                                <div class="fw-bold">{{ anuncio.autor.get_full_name|default:anuncio.autor.username }}
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="col-lg-9">
                         <article>
