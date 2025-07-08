@@ -48,7 +48,7 @@ def contact(request):
     })"""
 
 
-"""def blog_home(request):
+def blog_home(request):
     anuncios_qs = Anuncio.objects.filter(activo=True).order_by('-publicado')
     anuncio_principal = anuncios_qs.first()
 
@@ -60,7 +60,7 @@ def contact(request):
     return render(request, 'blog-home.html', {
         'anuncio': anuncio_principal,
         'otros_anuncios': page_obj  # ahora es el paginado
-    })"""
+    })
 
 
 def blog_home(request):

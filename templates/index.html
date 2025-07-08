@@ -18,14 +18,14 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-    <!--preloader -->
-    <div id="preloader"
-        class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center z-3"
-        style="background-color: #faf9f6; z-index: 9999;">
-        <div class="position-absolute top-0 start-0 w-100 h-100 backdrop-blur"></div>
-        <img src="{% static 'assets/img/Logo_preloader.png' %}" alt="Cargando..." height="120"
-            class="position-relative z-2 animate__animated animate__pulse animate__infinite">
-    </div>
+ <!-- Preloader -->
+<div id="preloader"
+    class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center z-3"
+    style="background-color: #faf9f6; z-index: 9999;">
+    <div class="position-absolute top-0 start-0 w-100 h-100 backdrop-blur"></div>
+    <img src="{% static 'assets/img/Logo_preloader.png' %}" alt="Cargando..." height="120"
+        class="position-relative z-2 animate__animated animate__pulse animate__infinite">
+</div>
 
     <main class="flex-shrink-0">
         <!-- Navigation-->
@@ -59,8 +59,7 @@
             </div>
         </nav>
         <!-- Header-->
-        <!-- Header -->
-        <header class="header-clinica bg-dark py-4">
+        <header class="header-clinica bg-dark pt-0 pb-4">
             <div class="container px-5">
                 <div class="row gx-5 align-items-center justify-content-center">
                     <div class="col-lg-8 col-xl-7 col-xxl-6">
@@ -69,12 +68,15 @@
                                 <span class="linea clinica">Clínica</span><br>
                                 <span class="linea tierra-santa">Tierra Santa</span>
                             </h1>
+<p id="hero-subtitle" class="linea subtitulo mt-3 fs-4 fst-italic text-light-gray">Servir es Reinar</p>
                         </div>
                     </div>
-                    <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-                        <img class="img-fluid rounded-3 my-4" src="https://dummyimage.com/600x400/343a40/6c757d"
-                            alt="..." />
-                    </div>
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                            <img class="img-fluid rounded-3 my-4"
+                                src="media/defaults/cts.jpg"
+                                alt="..."
+                                style="width: 600px; height: 400px;" />
+                        </div>
                 </div>
             </div>
         </header>
@@ -123,13 +125,6 @@
             </div>
         </section>
 
-
-
-
-
-
-
-
     </main>
     <!-- Footer-->
     <footer class="bg-dark py-4 mt-auto">
@@ -145,43 +140,6 @@
     <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
     <!--JS EDIT-->
     <script src="{% static 'assets/js/script.js' %}"></script>
-
-    <!-- Preloader control -->
-    <script>
-        document.body.classList.add('loading');
-
-        window.addEventListener("load", function () {
-            const preloader = document.getElementById("preloader");
-
-            setTimeout(() => {
-                preloader.classList.add("fade-out");
-                document.body.classList.remove('loading');
-
-                setTimeout(() => {
-                    preloader.remove();
-
-                    setTimeout(() => {
-                        // Animamos "Clínica"
-                        const clinica = document.querySelector('.clinica');
-                        if (clinica) {
-                            clinica.classList.add('visible');
-                        }
-
-                        // Esperamos un poco y luego animamos "Tierra Santa"
-                        setTimeout(() => {
-                            const tierraSanta = document.querySelector('.tierra-santa');
-                            if (tierraSanta) {
-                                tierraSanta.classList.add('visible');
-                            }
-                        }, 2000); // tiempo entre Clínica y Tierra Santa
-
-                    }, 300); // Pausa después de quitar preloader
-
-                }, 500); // tiempo del fade-out
-            }, 500); // tiempo inicial del preloader
-        });
-    </script>
-
 </body>
 
 </html>

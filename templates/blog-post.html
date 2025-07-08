@@ -31,7 +31,7 @@
             <div class="container px-5">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'inicio' %}">
                     <img src="{% static 'assets/img/Logo_navbar.png' %}" alt="" height="36">
-                    <span class="navbar-nombre">
+                         <span class="navbar-nombre">
                         <span class="clinica">Clínica</span>
                         <span class="tierra-santa">Tierra Santa</span>
                     </span>
@@ -58,46 +58,61 @@
         </nav>
 
         <!-- Page Content -->
-        <section class="py-5">
-            <div class="container px-5 my-5">
-                <div class="row gx-5">
-                    <div class="col-lg-3">
-                        <div class="d-flex align-items-center mt-lg-5 mb-4">
-                            <img class="img-fluid rounded-circle" style="width: 64px; height: 64px; object-fit: cover;"
-                                src="{% if anuncio.autor.perfil.avatar %}{{ anuncio.autor.perfil.avatar.url }}{% else %}{% static 'assets/img/avatar_default.jpg' %}{% endif %}"
-                                alt="Avatar de {{ anuncio.autor.username }}" />
-                            <div class="ms-3">
-                                <div class="fw-bold">{{ anuncio.autor.get_full_name|default:anuncio.autor.username }}
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-9">
-                        <article>
-                            <header class="mb-4">
-                                <h1 class="fw-bolder mb-1">{{ anuncio.titulo }}</h1>
-                                <div class="text-muted fst-italic mb-2">
-                                    Publicado el {{ anuncio.publicado|date:"j \\d\\e F, Y" }}
-                                </div>
-                                <span class="badge bg-secondary">Noticia</span>
-                            </header>
-
-                            {% if anuncio.imagen %}
-                            <figure class="mb-4">
-                                <img class="img-fluid rounded" src="{{ anuncio.imagen.url }}"
-                                    alt="{{ anuncio.titulo }}" />
-                            </figure>
-                            {% endif %}
-
-                            <section class="mb-5">
-                                <p class="fs-5 mb-4">{{ anuncio.contenido|linebreaks }}</p>
-                            </section>
-                        </article>
-                    </div>
-                </div>
+<section class="py-5">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <!-- Información del autor -->
+<div class="col-lg-3">
+    <div class="d-flex align-items-center mt-lg-5 mb-4">
+        {% if anuncio.autor.profile.avatar %}
+            <img class="img-fluid rounded-circle"
+                 src="{{ anuncio.autor.profile.avatar.url }}"
+                 alt="Avatar de {{ anuncio.autor.username }}"
+                 style="width: 64px; height: 64px; object-fit: cover;" />
+        {% else %}
+            <img class="img-fluid rounded-circle"
+                 src="/media/avatars/Icono.jpg"
+                 alt="Avatar por defecto"
+                 style="width: 64px; height: 64px; object-fit: cover;" />
+        {% endif %}
+        <div class="ms-3">
+            <div class="text-muted small mb-1">Creado por</div>
+            <div class="fw-bold">
+                {{ anuncio.autor.get_full_name|default:anuncio.autor.username }}
             </div>
-        </section>
+        </div>
+    </div>
+</div>
+
+
+
+            <!-- Contenido del anuncio -->
+            <div class="col-lg-9">
+                <article>
+                    <header class="mb-4">
+                        <h1 class="fw-bolder mb-1">{{ anuncio.titulo }}</h1>
+                        <div class="text-muted fst-italic mb-2">
+                            Publicado el {{ anuncio.publicado|date:"j \\d\\e F, Y" }}
+                        </div>
+                        <span class="badge bg-secondary">Noticia</span>
+                    </header>
+
+                    {% if anuncio.imagen %}
+                    <figure class="mb-4">
+                        <img class="img-fluid rounded" src="{{ anuncio.imagen.url }}"
+                             alt="{{ anuncio.titulo }}" />
+                    </figure>
+                    {% endif %}
+
+                    <section class="mb-5">
+                        <p class="fs-5 mb-4">{{ anuncio.contenido|linebreaks }}</p>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
 
     </main>
 
@@ -111,37 +126,10 @@
             </div>
         </div>
     </footer>
-
     <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
-    <!-- Preloader control -->
-    <script>
-        document.body.classList.add('loading');
 
-        window.addEventListener("load", function () {
-            const preloader = document.getElementById("preloader");
-            setTimeout(() => {
-                preloader.classList.add("fade-out");
-                document.body.classList.remove('loading');
-                setTimeout(() => preloader.remove(), 500);
-            }, 500);
-        });
-    </script><!--tiempo que dura en pantalla-->
-
-    <style>
-        .fade-out {
-            opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        .backdrop-blur {
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        body.loading {
-            overflow: hidden;
-        }
-    </style>
+    <script src="{% static 'assets/js/script.js' %}"></script>
+    
 </body>
 
 </html>

@@ -12,7 +12,12 @@ class AnuncioAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'publicado', 'activo')
     list_filter = ('activo', 'publicado')
     search_fields = ('titulo',)
-    exclude = ('autor',)  # 👈 Oculta el campo del formulario
+    exclude = ('autor',)
+
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:  # Solo al crear, no al editar
+            obj.autor = request.user
+        super().save_model(request, obj, form, change)
 
 # --- Admin Empleado ---
 

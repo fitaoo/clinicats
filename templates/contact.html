@@ -206,34 +206,7 @@
     </footer>
     <!-- Bootstrap core JS-->
     <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
-    <!-- Preloader control -->
-    <script>
-        document.body.classList.add('loading');
-
-        window.addEventListener("load", function () {
-            const preloader = document.getElementById("preloader");
-            setTimeout(() => {
-                preloader.classList.add("fade-out");
-                document.body.classList.remove('loading');
-                setTimeout(() => preloader.remove(), 500);
-            }, 500);
-        });
-    </script><!--tiempo que dura en pantalla-->
-
-    <style>
-        .fade-out {
-            opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        .backdrop-blur {
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        body.loading {
-            overflow: hidden;
-        }
-    </style>
+    
+    <script src="{% static 'assets/js/script.js' %}"></script>
 
 </html>
