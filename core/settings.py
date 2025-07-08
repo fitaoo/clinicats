@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-nq1z0bp)p+$24khory%tu^9$a28+ibhl9$@^efjbcbuu71s1xh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['192.168.1.151', '127.0.0.1']
 
 STATIC_URL = 'static/'
 
@@ -38,6 +37,7 @@ STATICFILES_DIRS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +45,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
+
 ]
+
+# PANEL ADMIN UIX
+UNFOLD = {
+    "SITE_TITLE": "Clínica Tierra Santa",
+    "SITE_HEADER": "Panel Administrativo",
+    "LOGO": {
+        "default": "assets/img/Logo_navbar.png",  # usado por defecto
+        "light": "assets/img/Logo_navbar.png",    # para modo claro
+        "dark": "assets/img/Logo_navbar.png",     # para modo oscuro
+    }
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -111,7 +124,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'es-ES'
+LANGUAGE_CODE = 'es'
+
+USE_L10N = True
 
 TIME_ZONE = 'UTC'
 
@@ -132,4 +147,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
