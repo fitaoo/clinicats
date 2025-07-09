@@ -67,77 +67,16 @@
                 <!-- Botones de filtro -->
                 <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
                     <a href="{% url 'contact' %}"
-                        class="btn btn-outline-primary {% if not direccion %}active{% endif %}">Todos</a>
+                        class="btn btn-outline-primary {% if not direccion %}active{% endif %}">
+                        Todos
+                    </a>
 
-                    <a href="?direccion=ADMISION_ELECTIVA"
-                        class="btn btn-outline-primary {% if direccion == 'ADMISION_ELECTIVA' %}active{% endif %}">Admisión
-                        electiva</a>
-                    <a href="?direccion=ADMISION_EMERGENCIA"
-                        class="btn btn-outline-primary {% if direccion == 'ADMISION_EMERGENCIA' %}active{% endif %}">Admisión
-                        emergencia</a>
-                    <a href="?direccion=ADMINISTRACION"
-                        class="btn btn-outline-primary {% if direccion == 'ADMINISTRACION' %}active{% endif %}">Administración</a>
-                    <a href="?direccion=ARQUITECTURA"
-                        class="btn btn-outline-primary {% if direccion == 'ARQUITECTURA' %}active{% endif %}">Arquitectura</a>
-                    <a href="?direccion=AUX_FARMACIA"
-                        class="btn btn-outline-primary {% if direccion == 'AUX_FARMACIA' %}active{% endif %}">Aux
-                        farmacia</a>
-                    <a href="?direccion=CAMARERAS"
-                        class="btn btn-outline-primary {% if direccion == 'CAMARERAS' %}active{% endif %}">Camareras</a>
-                    <a href="?direccion=COBRANZA"
-                        class="btn btn-outline-primary {% if direccion == 'COBRANZA' %}active{% endif %}">Cobranza</a>
-                    <a href="?direccion=COMPRAS"
-                        class="btn btn-outline-primary {% if direccion == 'COMPRAS' %}active{% endif %}">Compras</a>
-                    <a href="?direccion=COMPRAS_FARMACIA"
-                        class="btn btn-outline-primary {% if direccion == 'COMPRAS_FARMACIA' %}active{% endif %}">Compras
-                        farmacia</a>
-                    <a href="?direccion=CONTABILIDAD"
-                        class="btn btn-outline-primary {% if direccion == 'CONTABILIDAD' %}active{% endif %}">Contabilidad</a>
-                    <a href="?direccion=COCINA"
-                        class="btn btn-outline-primary {% if direccion == 'COCINA' %}active{% endif %}">Cocina</a>
-                    <a href="?direccion=EMERGENCIA"
-                        class="btn btn-outline-primary {% if direccion == 'EMERGENCIA' %}active{% endif %}">Emergencia</a>
-                    <a href="?direccion=ESTERILIZACION"
-                        class="btn btn-outline-primary {% if direccion == 'ESTERILIZACION' %}active{% endif %}">Esterilización</a>
-                    <a href="?direccion=ESTAR_ENFERMERIA"
-                        class="btn btn-outline-primary {% if direccion == 'ESTAR_ENFERMERIA' %}active{% endif %}">Estar
-                        enfermería</a>
-                    <a href="?direccion=ESTAR_ENFERMERIA_2"
-                        class="btn btn-outline-primary {% if direccion == 'ESTAR_ENFERMERIA_2' %}active{% endif %}">Estar
-                        enfermería 2</a>
-                    <a href="?direccion=FARMACIA"
-                        class="btn btn-outline-primary {% if direccion == 'FARMACIA' %}active{% endif %}">Farmacia</a>
-                    <a href="?direccion=FACTURACION"
-                        class="btn btn-outline-primary {% if direccion == 'FACTURACION' %}active{% endif %}">Facturación</a>
-                    <a href="?direccion=HISTORIAS_MEDICAS"
-                        class="btn btn-outline-primary {% if direccion == 'HISTORIAS_MEDICAS' %}active{% endif %}">Historias
-                        médicas</a>
-                    <a href="?direccion=MARKETING"
-                        class="btn btn-outline-primary {% if direccion == 'MARKETING' %}active{% endif %}">Marketing</a>
-                    <a href="?direccion=PRESUPUESTO"
-                        class="btn btn-outline-primary {% if direccion == 'PRESUPUESTO' %}active{% endif %}">Presupuesto</a>
-                    <a href="?direccion=PRESIDENCIA"
-                        class="btn btn-outline-primary {% if direccion == 'PRESIDENCIA' %}active{% endif %}">Presidencia</a>
-                    <a href="?direccion=PROTOCOLO"
-                        class="btn btn-outline-primary {% if direccion == 'PROTOCOLO' %}active{% endif %}">Protocolo</a>
-                    <a href="?direccion=QUIROFANO"
-                        class="btn btn-outline-primary {% if direccion == 'QUIROFANO' %}active{% endif %}">Quirofano</a>
-                    <a href="?direccion=REGENTE"
-                        class="btn btn-outline-primary {% if direccion == 'REGENTE' %}active{% endif %}">Regente</a>
-                    <a href="?direccion=RECURSOS_HUMANOS"
-                        class="btn btn-outline-primary {% if direccion == 'RECURSOS_HUMANOS' %}active{% endif %}">Recursos
-                        humanos</a>
-                    <a href="?direccion=SERVICIOS_GENERALES"
-                        class="btn btn-outline-primary {% if direccion == 'SERVICIOS_GENERALES' %}active{% endif %}">Servicios
-                        generales</a>
-                    <a href="?direccion=TECNOLOGIA"
-                        class="btn btn-outline-primary {% if direccion == 'TECNOLOGIA' %}active{% endif %}">Tecnología</a>
-                    <a href="?direccion=UCI"
-                        class="btn btn-outline-primary {% if direccion == 'UCI' %}active{% endif %}">UCI</a>
-                    <a href="?direccion=UTIN"
-                        class="btn btn-outline-primary {% if direccion == 'UTIN' %}active{% endif %}">UTIN</a>
-                    <a href="?direccion=AUDITORA"
-                        class="btn btn-outline-primary {% if direccion == 'AUDITORA' %}active{% endif %}">Auditora</a>
+                    {% for d in departamentos %}
+                    <a href="?direccion={{ d.nombre|urlencode }}"
+                        class="btn btn-outline-primary {% if direccion|upper == d.nombre|upper %}active{% endif %}">
+                        {{ d.nombre }}
+                    </a>
+                    {% endfor %}
                 </div>
 
                 <!-- Galería de empleados -->
@@ -152,7 +91,7 @@
                                 <h5 class="fw-semibold mb-1">{{ empleado.nombre }}</h5>
                                 <p class="mb-0">{{ empleado.telefono }}</p>
                                 <p class="mb-0">{{ empleado.correo }}</p>
-                                <p class="mb-0 text-muted">{{ empleado.get_direccion_display }}</p>
+                                <p class="mb-0 text-muted">{{ empleado.departamento.nombre }}</p>
                             </div>
                         </div>
                     </div>
@@ -168,7 +107,9 @@
                             {% if page_obj.has_previous %}
                             <li class="page-item">
                                 <a class="page-link"
-                                    href="?{% if direccion %}direccion={{ direccion }}&{% endif %}page={{ page_obj.previous_page_number }}">Anterior</a>
+                                    href="?{% if direccion %}direccion={{ direccion|urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}">
+                                    Anterior
+                                </a>
                             </li>
                             {% endif %}
 
@@ -181,15 +122,17 @@
                             {% if page_obj.has_next %}
                             <li class="page-item">
                                 <a class="page-link"
-                                    href="?{% if direccion %}direccion={{ direccion }}&{% endif %}page={{ page_obj.next_page_number }}">Siguiente</a>
+                                    href="?{% if direccion %}direccion={{ direccion|urlencode }}&{% endif %}page={{ page_obj.next_page_number }}">
+                                    Siguiente
+                                </a>
                             </li>
                             {% endif %}
                         </ul>
                     </nav>
                 </div>
-
             </div>
         </section>
+
 
     </main>
     <!-- Footer-->
@@ -197,7 +140,7 @@
         <div class="container px-5">
             <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                 <div class="col-auto">
-                    <div class="small m-0 text-white">Copyright &copy; Your Website 2023</div>
+                    <div class="small m-0 text-white">&copy; Clínica Tierra Santa 2025</div>
                 </div>
             </div>
         </div>

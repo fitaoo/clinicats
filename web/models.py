@@ -32,7 +32,7 @@ class Anuncio(models.Model):
  # ESTO ES PARA SECCION AGREGA EN ADMIN PARA SUBIR EMPLEADOS
 
 
-class Empleado(models.Model):
+"""class Empleado(models.Model):
     DIRECCIONES = [
         ('ADMISION_ELECTIVA', 'Admisión electiva'),
         ('ADMISION_EMERGENCIA', 'Admisión emergencia'),
@@ -75,6 +75,39 @@ class Empleado(models.Model):
     def save(self, *args, **kwargs):
         if not self.foto:
             # asegúrate de que el archivo exista
+            default_path = os.path.join('media', 'empleados', 'default.png')
+            if os.path.exists(default_path):
+                with open(default_path, 'rb') as f:
+                    self.foto.save('default.png', File(f), save=False)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.nombre"""
+
+
+class Departamento(models.Model):
+    nombre = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.nombre
+
+
+class Empleado(models.Model):
+    nombre = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=10)
+    correo = models.EmailField()
+    foto = models.ImageField(upload_to='empleados/', blank=True, null=True)
+
+    departamento = models.ForeignKey(
+        Departamento,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='empleados'
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.foto:
             default_path = os.path.join('media', 'empleados', 'default.png')
             if os.path.exists(default_path):
                 with open(default_path, 'rb') as f:

@@ -1,8 +1,8 @@
-from unfold.admin import ModelAdmin, StackedInline  # 👈 usamos el Inline de Unfold
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-from .models import Anuncio, Empleado, Perfil
+from unfold.admin import ModelAdmin, StackedInline
+from .models import Anuncio, Empleado, Departamento, Perfil
 
 # --- Admin para Anuncios ---
 
@@ -13,7 +13,7 @@ class AnuncioAdmin(ModelAdmin):
     list_filter = ('activo', 'publicado')
     search_fields = ('titulo',)
     exclude = ('autor',)
-    readonly_fields = ('publicado',)  # 👈 muestra la fecha sin romper nada
+    readonly_fields = ('publicado',)
 
     fieldsets = (
         ("📝 Detalles del anuncio", {
@@ -21,7 +21,6 @@ class AnuncioAdmin(ModelAdmin):
             "classes": ("wide",),
         }),
         ("📌 Información de publicación", {
-            # ✔️ ahora sí funciona porque es readonly
             "fields": ("publicado",),
             "classes": ("collapse",),
         }),
@@ -34,25 +33,29 @@ class AnuncioAdmin(ModelAdmin):
 
 
 # --- Admin para Empleados ---
-
-
 @admin.register(Empleado)
 class EmpleadoAdmin(ModelAdmin):
-    list_display = ('nombre', 'telefono', 'correo', 'direccion')
-    list_filter = ('direccion',)
+    list_display = ('nombre', 'correo', 'telefono', 'departamento')
+    list_filter = ('departamento',)
+    search_fields = ('nombre', 'correo')
+
+
+# --- Admin para Departamento ---
+@admin.register(Departamento)
+class DepartamentoAdmin(ModelAdmin):
+    list_display = ('nombre',)
+    search_fields = ('nombre',)
+
 
 # --- Inline visual para Perfil de usuario ---
-
-
 class PerfilInline(StackedInline):
     model = Perfil
     can_delete = False
     fields = ['avatar']
     verbose_name_plural = 'Perfil'
 
+
 # --- Admin personalizado para User con Inline de Perfil ---
-
-
 class UsuarioConPerfilAdmin(UserAdmin):
     inlines = [PerfilInline]
 
