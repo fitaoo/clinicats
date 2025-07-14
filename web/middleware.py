@@ -1,24 +1,26 @@
+# core/middleware/ip_dual_restrict.py
+
 from django.http import HttpResponseForbidden
 
-# Lista de IPs autorizadas
-IP_AUTORIZADAS = ["127.0.0.1", "192.168.0.1", "192.168.1.151"]
+# IPs que pueden acceder al sitio web
+ALLOWED_SITE_IPS = ['192.168.1.108','192.168.1.109']
 
+# IPs que pueden acceder al panel admin
+ALLOWED_ADMIN_IPS = ['192.168.1.108']
 
-class BloquearAdminPorIPMiddleware:
+class DualIPRestrictMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        # Detecta IP real incluso detrás de proxy
-        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(",")[0].strip()
-        else:
-            ip = request.META.get("REMOTE_ADDR")
+        client_ip = request.META.get('REMOTE_ADDR')
 
-        print("IP real detectada →", ip)
+        # Bloqueo total si la IP no está permitida para el sitio
+        if client_ip not in ALLOWED_SITE_IPS:
+            return HttpResponseForbidden("Acceso denegado: IP no autorizada para el sitio")
 
-        if request.path.startswith("/admin/") and ip not in IP_AUTORIZADAS:
-            return HttpResponseForbidden("🔒 Acceso al panel restringido por IP.")
+        # Bloqueo adicional si intenta entrar al admin y no tiene permiso
+        if request.path.startswith('/admin') and client_ip not in ALLOWED_ADMIN_IPS:
+            return HttpResponseForbidden("Acceso denegado: IP no autorizada para el panel admin")
 
         return self.get_response(request)

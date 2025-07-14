@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-nq1z0bp)p+$24khory%tu^9$a28+ibhl9$@^efjbcbuu71s1xh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.151', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 STATIC_URL = 'static/'
 
@@ -61,6 +61,7 @@ UNFOLD = {
 
 
 MIDDLEWARE = [
+    'web.middleware.DualIPRestrictMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,7 +69,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'web.middleware.BloquearAdminPorIPMiddleware',
 
 ]
 
