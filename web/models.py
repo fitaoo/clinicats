@@ -5,8 +5,6 @@ from django.core.files import File
 from django.contrib.auth.models import User
 
 # ESTO ES PARA SECCION AGREGAR ANUNCIOS EN ADMIN
-from django.db import models
-from django.utils.text import slugify
 
 
 class Anuncio(models.Model):

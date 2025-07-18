@@ -13,7 +13,6 @@ def inicio(request):
 
 # Propósito: Muestra el directorio telefónico.
 def contact(request):
-    print("🔍 Esta es la función correcta")
 
     direccion = request.GET.get('direccion')
     empleados = Empleado.objects.filter(

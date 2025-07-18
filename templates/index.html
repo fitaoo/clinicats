@@ -105,10 +105,20 @@
                                 <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                     <div class="d-flex align-items-end justify-content-between">
                                         <div class="d-flex align-items-center">
+                                            {% if anuncio.autor.profile.avatar %}
                                             <img class="rounded-circle me-3"
-                                                src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                                                src="{{ anuncio.autor.profile.avatar.url }}"
+                                                alt="Avatar de {{ anuncio.autor.username }}"
+                                                style="width: 40px; height: 40px; object-fit: cover;" />
+                                            {% else %}
+                                            <img class="rounded-circle me-3" src="/media/avatars/Icono.jpg"
+                                                alt="Avatar por defecto"
+                                                style="width: 40px; height: 40px; object-fit: cover;" />
+                                            {% endif %}
                                             <div class="small">
-                                                <div class="fw-bold">Publicado</div>
+                                                <div class="fw-bold">
+                                                    {{ anuncio.autor.get_full_name|default:anuncio.autor.username }}
+                                                </div>
                                                 <div class="text-muted">{{ anuncio.publicado|date:"d M Y" }}</div>
                                             </div>
                                         </div>
@@ -123,7 +133,6 @@
                 </div>
             </div>
         </section>
-
     </main>
     <!-- Footer-->
     <footer class="bg-dark py-4 mt-auto">

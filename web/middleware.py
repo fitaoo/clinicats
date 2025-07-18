@@ -1,12 +1,11 @@
-# core/middleware/ip_dual_restrict.py
-
 from django.http import HttpResponseForbidden
 
 # IPs que pueden acceder al sitio web
-ALLOWED_SITE_IPS = ['192.168.1.108','192.168.1.109']
+ALLOWED_SITE_IPS = ['192.168.1.108', '192.168.0.12', '192.168.1.151']
 
 # IPs que pueden acceder al panel admin
-ALLOWED_ADMIN_IPS = ['192.168.1.108']
+ALLOWED_ADMIN_IPS = ['192.168.1.108', '192.168.0.12', '192.168.1.151']
+
 
 class DualIPRestrictMiddleware:
     def __init__(self, get_response):
